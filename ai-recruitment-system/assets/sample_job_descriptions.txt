@@ -1,0 +1,8 @@
+Data Engineer
+We are looking for a Data Engineer with Python, SQL, ETL, Airflow, and data warehouse experience. The candidate should understand data pipelines and communicate clearly with analytics teams.
+
+AI Engineer
+We are looking for an AI Engineer with Python, machine learning, deep learning, TensorFlow or PyTorch, and experience building practical AI prototypes.
+
+Cybersecurity Analyst
+We are looking for a Cybersecurity Analyst with Linux, network security, SIEM tools, basic Python scripting, and incident response knowledge.

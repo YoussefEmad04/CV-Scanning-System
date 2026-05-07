@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+plotly
+openai
+python-dotenv
+PyPDF2
+pdfplumber
+python-docx
+reportlab
