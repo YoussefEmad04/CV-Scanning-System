@@ -5,3 +5,5 @@ __pycache__/
 .streamlit/
 DE-CV/
 data/uploaded_cvs/
+node_modules/
+.DS_Store

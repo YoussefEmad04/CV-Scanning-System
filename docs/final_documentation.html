@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Recruitment & Resume Screening System - Final Documentation</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eef2f7;
+      color: #172033;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11.5pt;
+      line-height: 1.62;
+    }
+    .report { max-width: 980px; margin: 0 auto; background: #ffffff; padding: 0 44px 48px; }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 4px solid #1f4e79;
+      page-break-after: always;
+    }
+    .cover .eyebrow {
+      color: #1f4e79;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 10pt;
+      margin-bottom: 18px;
+    }
+    .cover h1 { font-size: 34pt; line-height: 1.12; color: #0f172a; margin: 0 0 18px; }
+    .cover .subtitle { font-size: 15pt; color: #475569; max-width: 760px; margin-bottom: 34px; }
+    .cover .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 820px;
+      color: #334155;
+    }
+    .meta-box { border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 8px; padding: 14px 16px; }
+    .meta-label {
+      display: block;
+      color: #64748b;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .students {
+      max-width: 820px;
+      margin: 4px 0 18px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .students-title {
+      background: #1f4e79;
+      color: #ffffff;
+      padding: 10px 14px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 9.5pt;
+    }
+    .student-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .student { padding: 10px 14px; border-top: 1px solid #e2e8f0; }
+    .student:nth-child(odd) { border-right: 1px solid #e2e8f0; }
+    .student-name { font-weight: 700; color: #0f172a; }
+    .student-id { color: #475569; font-size: 10pt; }
+    h1 { color: #0f172a; font-size: 24pt; line-height: 1.2; margin: 0 0 22px; }
+    h2 {
+      color: #1f4e79;
+      font-size: 17pt;
+      line-height: 1.25;
+      margin: 34px 0 12px;
+      padding-bottom: 7px;
+      border-bottom: 2px solid #dbeafe;
+      text-transform: uppercase;
+    }
+    h2.major-section { page-break-before: always; }
+    h2.major-section:first-of-type { page-break-before: auto; }
+    h3 {
+      color: #0f172a;
+      font-size: 13.5pt;
+      margin: 22px 0 8px;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+    h3.diagram-heading { page-break-before: always; break-before: page; margin-top: 0; }
+    p { margin: 0 0 12px; orphans: 3; widows: 3; }
+    h3.diagram-heading + p { page-break-after: avoid; break-after: avoid; }
+    ul, ol { margin: 8px 0 14px 22px; padding: 0; }
+    li { margin-bottom: 6px; }
+    code {
+      background: #eef2f7;
+      color: #0f172a;
+      border: 1px solid #d7dee9;
+      border-radius: 4px;
+      padding: 1px 4px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      overflow: hidden;
+      white-space: pre-wrap;
+      border: 1px solid #1e293b;
+    }
+    pre code { background: transparent; border: 0; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 10.5pt; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px 10px; vertical-align: top; }
+    th { background: #eaf2ff; color: #0f172a; font-weight: 700; }
+    figure { margin: 16px auto 8px; page-break-inside: avoid; break-inside: avoid; }
+    figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+    figure.diagram {
+      padding: 10px;
+      border: 1px solid #d9e2ef;
+      background: #f8fafc;
+      border-radius: 10px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    figure.diagram img { width: 100%; max-height: 650px; object-fit: contain; }
+    figure.screenshot {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f8fafc;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+    figure.screenshot img { width: 100%; }
+    p em {
+      display: block;
+      text-align: center;
+      color: #475569;
+      font-size: 9.5pt;
+      font-style: italic;
+      margin-top: 6px;
+    }
+    a { color: #1f4e79; text-decoration: none; }
+    @media print {
+      body { background: #ffffff; }
+      .report { max-width: none; padding: 0; }
+      h2.major-section { page-break-before: always; }
+      h3 { break-after: avoid; }
+      h3.diagram-heading { break-before: page; }
+      figure { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+    <section class="cover">
+      <div class="eyebrow">Final Project Documentation</div>
+      <h1>AI Recruitment &amp; Resume Screening System</h1>
+      <p class="subtitle">Professional report for an AI Application course project at Egyptian Russian University, generated from the implemented Streamlit project documentation.</p>
+      <div class="students">
+        <div class="students-title">Prepared By</div>
+        <div class="student-grid">
+          <div class="student"><div class="student-name">Youssef Emad</div><div class="student-id">ID: 225241</div></div>
+          <div class="student"><div class="student-name">Omar Tokal</div><div class="student-id">ID: 225238</div></div>
+          <div class="student"><div class="student-name">Amr Hamdy</div><div class="student-id">ID: 225182</div></div>
+          <div class="student"><div class="student-name">Zeyad Mostafa</div><div class="student-id">ID: 225070</div></div>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="meta-box"><span class="meta-label">Course</span>AI Application</div>
+        <div class="meta-box"><span class="meta-label">Instructor</span>Mohamed Gonid</div>
+        <div class="meta-box"><span class="meta-label">University</span>Egyptian Russian University</div>
+        <div class="meta-box"><span class="meta-label">Project Type</span>Decision-Support Recruitment Screening</div>
+      </div>
+    </section>
+    <h2 id="table-of-contents" class="major-section">TABLE OF CONTENTS</h2>
+<ol>
+<li>Abstract</li>
+<li>Introduction</li>
+<li>Related Work</li>
+<li>Dataset / Data</li>
+<li>Tools and Technologies</li>
+<li>Methodology</li>
+<li>Implementation</li>
+<li>Diagrams and Visualization</li>
+<li>Results and Testing</li>
+<li>Screenshots of Run</li>
+<li>Limitations</li>
+<li>Future Work</li>
+<li>Conclusion</li>
+<li>References</li>
+</ol>
+<h2 id="1-abstract" class="major-section">ABSTRACT</h2>
+<p>The AI Recruitment &amp; Resume Screening System is a Streamlit-based platform for supporting recruitment and resume screening workflows. It connects CV upload, resume parsing, semantic resume ranking, job-description bias detection, synthetic CV generation, resume style transformation, a RAG assistant, and dashboard visualizations inside one user interface.</p>
+<p>The system uses OpenAI-powered language model and embedding features when <code>OPENAI_API_KEY</code> is configured. When the API key is not available, several modules provide simple demo fallbacks so the application can still be explored. The system is designed as a decision-support tool for recruiters and HR teams. It does not make final hiring decisions, and all candidate-related outputs require human review.</p>
+<h2 id="2-introduction" class="major-section">INTRODUCTION</h2>
+<p>Manual resume screening is time-consuming, especially when recruiters receive many CVs for one role. Resumes vary in structure, wording, length, and formatting, which makes direct comparison difficult. Traditional keyword-based screening can miss qualified candidates who describe the same skills using different terms.</p>
+<p>HR teams need faster tools that can summarize candidate information, compare resumes with job descriptions, and explain why a candidate appears relevant. At the same time, recruitment tools must be used carefully because automated systems can introduce or amplify unfair screening behavior. Fairness checks, neutral job descriptions, source-based answers, and human review are important parts of responsible recruitment support.</p>
+<p>The aim of this project is to build a demo-level AI recruitment platform that connects multiple recruitment services into one Streamlit UI. The implemented system helps upload and parse CVs, rank candidates, detect biased wording, generate synthetic data for testing, transform resume style, ask questions over uploaded resumes, and review metrics through a dashboard.</p>
+<h2 id="3-related-work" class="major-section">RELATED WORK</h2>
+<h3 id="a-traditional-resume-screening-and-applicant-tracking-systems" class="">A. Traditional Resume Screening and Applicant Tracking Systems</h3>
+<p>Traditional Applicant Tracking Systems and resume screening tools help HR teams filter large numbers of applicants. Many earlier systems depend on keyword matching, rule-based filtering, TF-IDF, cosine similarity, and simple machine learning models. These tools can reduce manual effort, but they often struggle when candidates use different words for the same skill, when resumes have different formats, or when the system depends too much on exact keywords. They can also miss semantic meaning and may reflect biased screening criteria.</p>
+<p>Relation to this project: this project solves the same screening problem, but it improves the matching step by using semantic embeddings when OpenAI is configured instead of only keyword matching. It also adds explanation, bias detection, RAG-based questioning, and a full Streamlit UI.</p>
+<h3 id="b-semantic-resume-matching-using-embeddings" class="">B. Semantic Resume Matching Using Embeddings</h3>
+<p>Modern matching systems use embeddings to represent resumes and job descriptions as vectors. This allows the system to compare the meaning of texts, not only exact words. Embeddings are useful for search, clustering, recommendations, classification, and measuring relatedness between pieces of text.</p>
+<p>Relation to this project: the Resume Ranking module uses OpenAI embeddings to calculate similarity between uploaded CV text and the job description when an API key is configured. The similarity score is then used to rank candidates. The LLM is used to explain the result, but the score itself comes from embedding similarity. Without an API key, the implemented fallback uses keyword overlap.</p>
+<h3 id="c-retrieval-augmented-generation-for-resume-analysis" class="">C. Retrieval-Augmented Generation for Resume Analysis</h3>
+<p>Retrieval-Augmented Generation, or RAG, combines a retrieval system with a language model. Instead of asking the LLM to answer from memory only, the system first retrieves relevant text chunks from documents, then asks the model to answer using that context. This improves grounding and helps provide source-based answers.</p>
+<p>Relation to this project: the RAG Assistant works over uploaded CVs. It chunks CV text, retrieves the most relevant chunks using similarity search when embeddings are available, and then uses the LLM to answer recruiter questions based only on the retrieved CV content. It also shows source CV names and snippets. Without an API key, retrieval falls back to keyword overlap and provides a demo answer.</p>
+<h3 id="d-synthetic-resume-data-generation" class="">D. Synthetic Resume Data Generation</h3>
+<p>Synthetic data is useful when real recruitment data is limited, private, or hard to collect. In recruitment projects, synthetic CVs can be used for testing, demonstration, and balancing different job categories. Generative models such as GANs can be used for synthetic data generation, but training a real GAN for resumes is more advanced.</p>
+<p>Relation to this project: the Synthetic CV Generation module simulates GAN-generated CV data for demo purposes. It generates structured CV records with name, job category, skills, education, years of experience, projects, certifications, and resume text. This module can later be replaced by a real GAN or a more advanced LLM-based generator.</p>
+<h3 id="e-bias-and-fairness-in-ai-recruitment" class="">E. Bias and Fairness in AI Recruitment</h3>
+<p>AI recruitment systems can improve efficiency, but they can also create or amplify bias. A known example is Amazon&#x27;s experimental AI recruiting tool, which was reported to show bias against women because it learned from historical hiring data. Fairness guidance from employment and AI risk management organizations emphasizes the need for human oversight, fairness checks, and avoiding discrimination in employment-related AI tools.</p>
+<p>Relation to this project: the Bias Detection module checks job descriptions for biased or exclusionary words related to age, gender, nationality/language, and aggressive wording. It suggests neutral alternatives and helps make job descriptions more inclusive. The system also clearly states that final hiring decisions require human review.</p>
+<h3 id="f-llms-for-explanation-and-style-transformation" class="">F. LLMs for Explanation and Style Transformation</h3>
+<p>Large language models can help explain candidate-job matches, rewrite job descriptions, improve resume wording, and answer recruiter questions. However, LLMs may hallucinate if they are not controlled. Recruitment systems should avoid inventing skills, experience, education, or certificates, and should rely on uploaded CV content when answering candidate-related questions.</p>
+<p>Relation to this project: the project uses an OpenAI LLM for candidate explanations, resume style transformation, neutral job description rewriting, synthetic CV text generation when configured, and RAG answers. The prompts are designed to avoid final hiring decisions and to remind users that the system is only a decision-support tool.</p>
+<h3 id="relation-to-the-proposed-system" class="">Relation to the Proposed System</h3>
+<p>The proposed system combines resume upload and parsing, AI-powered resume ranking, bias detection, synthetic CV generation, style transformation, RAG assistant functionality, and dashboard visualizations inside one Streamlit UI. All services are connected to Streamlit pages, allowing the user to move through the recruitment support workflow from CV upload to analysis and presentation-ready charts.</p>
+<h2 id="4-dataset-data" class="major-section">DATASET / DATA</h2>
+<p>The project uses a local set of 20 Data Engineer CV files for testing and demonstration. The documentation and screenshots do not expose private personal details from these CV files.</p>
+<p>Uploaded CVs are stored locally under the project data folders and processed into structured CSV records. Extracted CV text is saved in <code>data/processed/cvs.csv</code> and is used by the ranking, RAG assistant, dashboard, and related workflows. Ranking outputs are stored in <code>data/processed/ranking_results.csv</code>. RAG embedding cache data is stored under <code>data/vector_db/</code> when embeddings are generated.</p>
+<p>Synthetic CVs are generated for demo and testing purposes and saved in <code>data/synthetic/synthetic_cvs.csv</code>. Generated synthetic records include fields such as name, job category, skills, education, years of experience, projects, certifications, and resume text. The synthetic CV module can also create downloadable PDF resumes for generated fake candidates.</p>
+<h2 id="5-tools-and-technologies" class="major-section">TOOLS AND TECHNOLOGIES</h2>
+<table>
+<thead><tr>
+<th>Tool / Technology</th>
+<th>Use in the Project</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Streamlit</td>
+<td>Multipage user interface for the recruitment workflow.</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Backend logic, service functions, file handling, parsing, ranking, and report generation.</td>
+</tr>
+<tr>
+<td>OpenAI Embeddings</td>
+<td>Semantic resume ranking and RAG retrieval when <code>OPENAI_API_KEY</code> is configured.</td>
+</tr>
+<tr>
+<td>OpenAI LLM</td>
+<td>Candidate explanations, neutral rewriting, resume style transformation, synthetic resume text generation, and RAG answers.</td>
+</tr>
+<tr>
+<td>PDF/DOCX parsers</td>
+<td>Resume text extraction using PDF and DOCX parsing libraries.</td>
+</tr>
+<tr>
+<td>CSV local storage</td>
+<td>Stores CV records, ranking results, and synthetic CVs locally.</td>
+</tr>
+<tr>
+<td>Playwright</td>
+<td>Browser automation for screenshot capture and PDF export.</td>
+</tr>
+<tr>
+<td>Pillow static diagrams</td>
+<td>Generates professional PNG architecture and workflow diagrams for the documentation.</td>
+</tr>
+<tr>
+<td>Plotly / Charts</td>
+<td>Dashboard visualizations, ranking charts, bias charts, and synthetic CV charts.</td>
+</tr>
+</tbody></table>
+<h2 id="6-methodology" class="major-section">METHODOLOGY</h2>
+<p>The system follows a clear recruitment support workflow:</p>
+<p>CV upload → text extraction → local storage → resume ranking → bias detection → synthetic CV generation → style transformation → RAG assistant → dashboard review.</p>
+<p>First, the user uploads PDF or DOCX CV files through the Streamlit interface. The resume parser extracts plain text and the storage service saves structured CV records locally. The ranking module then compares the uploaded CV text with a job description using OpenAI embeddings when available, or a keyword-based fallback when the API key is not configured.</p>
+<p>The bias detection module analyzes job descriptions for listed biased or exclusionary terms and suggests neutral alternatives. The synthetic CV module creates fake candidate records for demonstration and testing. The style transformation module rewrites resume text into selected formats while preserving the original facts. The RAG assistant chunks uploaded CV text, retrieves relevant snippets, and answers recruiter questions using retrieved context. Finally, the dashboard combines metrics and charts from the stored CV, ranking, synthetic, and RAG data.</p>
+<p>This workflow supports recruitment screening and presentation, but final candidate decisions remain the responsibility of human reviewers.</p>
+<h2 id="7-implementation" class="major-section">IMPLEMENTATION</h2>
+<p>The project is implemented as a Streamlit multipage application. The main UI entry point is <code>app.py</code>, and each feature page in <code>pages/</code> connects to service functions in <code>services/</code>.</p>
+<h3 id="streamlit-pages" class="">Streamlit Pages</h3>
+<ul>
+<li><code>app.py</code>: Home page for the AI Recruitment &amp; Resume Screening System. It displays project status, uploaded CV count, ranked candidate count, average match score, synthetic CV count, module cards, workflow steps, and a decision-support warning.</li>
+<li><code>pages/1_Upload_CVs.py</code>: Uploads PDF and DOCX resumes, saves uploaded files locally, extracts text, creates candidate records, and displays uploaded CV metadata and extracted text previews.</li>
+<li><code>pages/2_Resume_Ranking.py</code>: Accepts a job description, ranks uploaded CVs, saves ranking results, displays candidate score summaries, matched skills, missing skills, explanations, tables, filters, and a ranking score chart.</li>
+<li><code>pages/3_Bias_Detection.py</code>: Accepts a job description, detects listed biased terms, suggests neutral alternatives, displays findings in summary/table/chart views, and can rewrite text neutrally with OpenAI when configured.</li>
+<li><code>pages/4_Synthetic_CV_Generation.py</code>: Generates synthetic CVs by job category or from job requirements, saves synthetic records, creates PDF output, and displays synthetic CV tables and distribution charts.</li>
+<li><code>pages/5_Style_Transformation.py</code>: Uploads or accepts resume text, transforms it into professional, ATS-friendly, or short summary style, and produces downloadable PDF output.</li>
+<li><code>pages/6_RAG_Assistant.py</code>: Builds CV chunks from uploaded resumes, retrieves relevant chunks for a question, answers with RAG, and displays source snippets for review.</li>
+<li><code>pages/7_Dashboard.py</code>: Displays overall metrics, ranking charts, synthetic CV charts, RAG index status, and a skills frequency chart based on extracted CV text.</li>
+</ul>
+<h3 id="services" class="">Services</h3>
+<ul>
+<li><code>services/openai_service.py</code>: Central OpenAI wrapper. It loads environment variables, checks whether <code>OPENAI_API_KEY</code> exists, creates the OpenAI client, generates text using the configured model, creates embeddings using the configured embedding model, and calculates cosine similarity.</li>
+<li><code>services/resume_parser.py</code>: Extracts text from PDF and DOCX files using <code>pdfplumber</code>, <code>PyPDF2</code>, and <code>python-docx</code>. It also cleans resume text and estimates a candidate name from the resume text or file name.</li>
+<li><code>services/ranking_service.py</code>: Extracts common skills, finds matched and missing skills, computes candidate-job similarity with OpenAI embeddings when available, falls back to keyword overlap otherwise, and generates candidate explanations.</li>
+<li><code>services/bias_detection_service.py</code>: Contains a dictionary of biased terms and neutral alternatives, detects terms in job descriptions, and rewrites job descriptions neutrally with OpenAI when configured.</li>
+<li><code>services/synthetic_cv_service.py</code>: Generates fake structured CV records by category, builds fallback resume text, extracts requirement skills, generates job responsibilities, and can create a high-match fake CV from requirements. It simulates GAN-generated CV data for demo purposes.</li>
+<li><code>services/style_transformer_service.py</code>: Transforms resume text using OpenAI or a rule-based fallback and creates formatted PDF resume bytes with ReportLab.</li>
+<li><code>services/rag_service.py</code>: Chunks CV text, builds retrieval records, retrieves relevant chunks using embeddings or keyword overlap, caches chunk embeddings, reports index status, and answers questions using retrieved CV context.</li>
+<li><code>services/storage_service.py</code>: Creates local data directories and reads/writes uploaded CV records, ranking results, and synthetic CV records as CSV files.</li>
+</ul>
+<p>All listed services are connected to the Streamlit UI through the page files. The app keeps page code focused on interface controls and delegates parsing, ranking, bias detection, synthetic generation, style transformation, RAG, and storage work to reusable services.</p>
+<h2 id="8-diagrams-and-visualization" class="major-section">DIAGRAMS AND VISUALIZATION</h2>
+<h3 id="figure-1-system-architecture-diagram" class="diagram-heading">Figure 1. System Architecture Diagram</h3>
+<p>Figure 1 shows the main architecture of the system. The Streamlit UI connects feature pages to reusable service modules, local data storage, the vector cache, and OpenAI services when configured.</p>
+<figure class="diagram"><img src="diagrams/figure_01_system_architecture.png" alt="Figure 1. System Architecture Diagram"></figure>
+<p><em>Figure 1. System Architecture Diagram.</em></p>
+<h3 id="figure-2-streamlit-ui-navigation-diagram" class="diagram-heading">Figure 2. Streamlit UI Navigation Diagram</h3>
+<p>Figure 2 summarizes the user navigation structure. The sidebar exposes the home page and each major recruitment module.</p>
+<figure class="diagram"><img src="diagrams/figure_02_ui_navigation.png" alt="Figure 2. Streamlit UI Navigation Diagram"></figure>
+<p><em>Figure 2. Streamlit UI Navigation Diagram.</em></p>
+<h3 id="figure-3-resume-ranking-flow" class="diagram-heading">Figure 3. Resume Ranking Flow</h3>
+<p>Figure 3 shows how the ranking page loads CV records, compares resumes with the job description, calculates scores, and saves/display results.</p>
+<figure class="diagram"><img src="diagrams/figure_03_resume_ranking_flow.png" alt="Figure 3. Resume Ranking Flow"></figure>
+<p><em>Figure 3. Resume Ranking Flow.</em></p>
+<h3 id="figure-4-bias-detection-flow" class="diagram-heading">Figure 4. Bias Detection Flow</h3>
+<p>Figure 4 shows how job-description text is checked against the bias term dictionary and optionally rewritten with neutral wording.</p>
+<figure class="diagram"><img src="diagrams/figure_04_bias_detection_flow.png" alt="Figure 4. Bias Detection Flow"></figure>
+<p><em>Figure 4. Bias Detection Flow.</em></p>
+<h3 id="figure-5-rag-pipeline" class="diagram-heading">Figure 5. RAG Pipeline</h3>
+<p>Figure 5 explains the RAG assistant. Uploaded CV text is chunked, relevant snippets are retrieved, and the answer is generated from the retrieved context.</p>
+<figure class="diagram"><img src="diagrams/figure_05_rag_pipeline.png" alt="Figure 5. RAG Pipeline"></figure>
+<p><em>Figure 5. RAG Pipeline.</em></p>
+<h3 id="figure-6-synthetic-cv-generation-flow" class="diagram-heading">Figure 6. Synthetic CV Generation Flow</h3>
+<p>Figure 6 shows the synthetic CV generation flow. It supports category-based generation and requirements-based high-match fake CV generation.</p>
+<figure class="diagram"><img src="diagrams/figure_06_synthetic_cv_generation_flow.png" alt="Figure 6. Synthetic CV Generation Flow"></figure>
+<p><em>Figure 6. Synthetic CV Generation Flow.</em></p>
+<h3 id="implemented-app-visualizations" class="">Implemented App Visualizations</h3>
+<p>The implemented application includes these visualizations. The actual UI chart screenshots are included in the Screenshots of Run section:</p>
+<ul>
+<li>Ranking score chart in the Resume Ranking page.</li>
+<li>Bias category chart in the Bias Detection page.</li>
+<li>Synthetic CV distribution charts by job category and years of experience.</li>
+<li>Dashboard metrics and charts for uploaded CVs, ranking results, synthetic CVs, and RAG status.</li>
+<li>Skills frequency chart in the Dashboard page.</li>
+</ul>
+<h2 id="9-results-and-testing" class="major-section">RESULTS AND TESTING</h2>
+<p>The following results were validated from the current local project data and running Streamlit app:</p>
+<table>
+<thead><tr>
+<th>Validation Item</th>
+<th>Result</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>CV records</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Ranking results</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Synthetic CVs</td>
+<td>35</td>
+</tr>
+<tr>
+<td>RAG chunks</td>
+<td>111</td>
+</tr>
+<tr>
+<td>Cached RAG chunks</td>
+<td>111</td>
+</tr>
+<tr>
+<td>Average match score</td>
+<td>52.8%</td>
+</tr>
+<tr>
+<td>Streamlit HTTP check</td>
+<td>200 OK</td>
+</tr>
+<tr>
+<td>CV parsing</td>
+<td>20 successful, 0 failed</td>
+</tr>
+</tbody></table>
+<p>These results confirm that the implemented services are connected end-to-end through the Streamlit UI. Uploaded CVs are parsed and saved, ranking results are available, synthetic CV data is stored, the RAG index is built and cached, and the dashboard reads from the local processed data.</p>
+<h2 id="10-screenshots-of-run" class="major-section">SCREENSHOTS OF RUN</h2>
+<figure class="screenshot"><img src="screenshots/01_home.png" alt="Home Page"></figure>
+<p>Figure 7. The home page shows the project overview, current local data counts, module cards, workflow steps, and the human-review warning.</p>
+<figure class="screenshot"><img src="screenshots/02_upload_cvs.png" alt="Upload CVs Page"></figure>
+<p>Figure 8. The Upload CVs page provides PDF/DOCX upload, local parsing, stored candidate records, and extracted text preview. Private CV details are not exposed in the documentation.</p>
+<figure class="screenshot"><img src="screenshots/03_resume_ranking.png" alt="Resume Ranking Page"></figure>
+<p>Figure 9. The Resume Ranking page displays ranking results, filters, score outputs, and candidate comparison controls. Private candidate names and file names are masked in the screenshot.</p>
+<figure class="screenshot"><img src="screenshots/04_bias_detection.png" alt="Bias Detection Page"></figure>
+<p>Figure 10. The Bias Detection page shows detected biased terms from a sample job description and provides neutral alternatives.</p>
+<figure class="screenshot"><img src="screenshots/05_synthetic_cv_generation.png" alt="Synthetic CV Generation Page"></figure>
+<p>Figure 11. The Synthetic CV Generation page shows generated fake CV records and saved synthetic data for testing and presentation.</p>
+<figure class="screenshot"><img src="screenshots/06_style_transformation.png" alt="Style Transformation Page"></figure>
+<p>Figure 12. The Style Transformation page shows transformed output from sample resume text and a PDF download option.</p>
+<figure class="screenshot"><img src="screenshots/07_rag_assistant.png" alt="RAG Assistant Page"></figure>
+<p>Figure 13. The RAG Assistant page shows an answer and retrieved source snippets. Private source labels are masked in the screenshot.</p>
+<figure class="screenshot"><img src="screenshots/08_dashboard.png" alt="Dashboard Page"></figure>
+<p>Figure 14. The Dashboard page summarizes uploaded CVs, ranking results, synthetic CV coverage, RAG chunk status, and visualization tabs.</p>
+<h2 id="11-limitations" class="major-section">LIMITATIONS</h2>
+<ul>
+<li>The dataset is limited to 20 CVs, so results should be treated as a project demonstration rather than broad hiring evidence.</li>
+<li>Synthetic CV generation is simulated and is not a real trained GAN.</li>
+<li>LLM output may vary between runs depending on model behavior and prompts.</li>
+<li>Human review is required for all candidate-related results.</li>
+<li>The system is academic/demo-level software and is not production hiring software.</li>
+</ul>
+<h2 id="12-future-work" class="major-section">FUTURE WORK</h2>
+<ul>
+<li>Use a larger and more diverse CV dataset.</li>
+<li>Replace simulated synthetic generation with a real GAN or more advanced controlled generator.</li>
+<li>Add advanced fairness metrics beyond dictionary-based wording checks.</li>
+<li>Add authentication and user roles.</li>
+<li>Use a database instead of CSV-only local storage.</li>
+<li>Deploy the app online.</li>
+<li>Add better ranking evaluation metrics, such as precision, recall, human-labeled relevance checks, and benchmark comparisons.</li>
+</ul>
+<h2 id="13-conclusion" class="major-section">CONCLUSION</h2>
+<p>The AI Recruitment &amp; Resume Screening System successfully connects multiple AI recruitment services into one Streamlit UI. It supports resume upload and parsing, resume analysis, semantic ranking, bias detection, synthetic data generation, resume style transformation, RAG-based questions, and dashboard visualizations.</p>
+<p>The project improves demo-level recruitment screening by organizing candidate data and making screening outputs easier to inspect. However, it remains a decision-support tool. It should not be used as a final hiring decision maker, and all results should be reviewed by a human.</p>
+<h2 id="14-references" class="major-section">REFERENCES</h2>
+<ol>
+<li>OpenAI. &quot;OpenAI API Documentation.&quot; Official documentation for language models, embeddings, and API usage.</li>
+<li>Streamlit. &quot;Streamlit Documentation.&quot; Official documentation for building and deploying Streamlit applications.</li>
+<li>Lewis, P. et al. &quot;Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.&quot; NeurIPS, 2020.</li>
+<li>Reuters. &quot;Amazon scraps secret AI recruiting tool that showed bias against women.&quot; Reuters technology report, 2018.</li>
+<li>U.S. Equal Employment Opportunity Commission. &quot;Artificial Intelligence and Algorithmic Fairness Initiative.&quot; Employment guidance and technical assistance.</li>
+<li>National Institute of Standards and Technology. &quot;AI Risk Management Framework.&quot; NIST AI RMF 1.0.</li>
+<li>Research and industry literature on Applicant Tracking Systems, NLP-based resume screening, semantic matching, and recruitment decision-support tools.</li>
+</ol>
+  </main>
+</body>
+</html>
