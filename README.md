@@ -4,18 +4,6 @@ A Streamlit university project for AI-assisted recruitment screening. The system
 
 This project is a **decision-support tool**. It helps organize and explain recruitment review, but it is not a final hiring decision maker. Final hiring decisions must remain under human review.
 
-## Project Identity
-
-**Course:** AI Application  
-**University:** Egyptian Russian University  
-**Instructor:** Mohamed Gonid
-
-**Prepared by:**
-
-- Youssef Emad - ID: 225241
-- Omar Tokal - ID: 225238
-- Amr Hamdy - ID: 225182
-- Zeyad Mostafa - ID: 225070
 
 ## Features
 
